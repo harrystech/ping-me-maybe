@@ -1,6 +1,6 @@
 # PingMeMaybe
 
-TODO: Write a gem description
+PingMeMaybe is a small library to be used in conjunction with [Cronut](https://github.com/harrystech/cronut), a dead man's switch server implementation in Rails. 
 
 ## Installation
 
@@ -18,7 +18,26 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+PingMeMaybe allows you to ping your Cronut server in jobs that Cronut monitors. To use PingMeMaybe start by adding the Ping ID you wish to ping from your Cronut server as a variable to your Resque job. Then simply invoke the class method `.ping_cronut` on PingMeMaybe, passing it the Cronut Ping ID. Example:
+
+```ruby
+
+    class SomeResqueJob
+        @queue = :some_queue
+        CRONUT_PING_ID = 'ABCD1234'
+        
+        def self.perform(some_object_id)
+			begin
+			    ...
+			    PingMeMaybe.ping_cronut(CRONUT_PING_ID)
+			    ...
+			 rescue StandardError => e
+			     Rails.logger.error(e.inspect)
+			     raise
+			 end
+        end
+    end
+```
 
 ## Contributing
 
