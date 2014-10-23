@@ -4,7 +4,7 @@ require "ping_me_maybe/connection"
 
 module PingMeMaybe
 
-    def ping_cronut(public_id = self.class.constants.include?(:CRONUT_PING_ID).presence && self.class::CRONUT_PING_ID)
+    def self.ping_cronut(public_id = self.class.constants.include?(:CRONUT_PING_ID).presence && self.class::CRONUT_PING_ID)
 
         if PingMeMaybe::CRONUT_HOST && public_id
             begin
